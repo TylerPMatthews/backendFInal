@@ -16,9 +16,14 @@ require('dotenv').config()
 
 */
 const pg = require('pg')
+const localConnection = 'postgresql://localhost/recipefinal'
+let connection
 
 if (process.env.DATABASE_URL) {
   pg.defaults.ssl = { rejectUnauthorized: false }
+  connection = process.env.DATABASE_URL
+}else{
+  connection = localConnection
 }
 
 const sharedConfig = {
