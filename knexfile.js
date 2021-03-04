@@ -15,16 +15,6 @@ fixed env
     - testing_database_name (use the real name of the testing database you created in pgAdmin 4)
 
 */
-const pg = require('pg')
-const localConnection = 'postgresql://localhost/recipefinal'
-let connection
-
-if (process.env.DATABASE_URL) {
-  pg.defaults.ssl = { rejectUnauthorized: false }
-  connection = process.env.DATABASE_URL
-}else{
-  connection = localConnection
-}
 
 const sharedConfig = {
   client: 'pg',
