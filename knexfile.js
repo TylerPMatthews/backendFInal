@@ -8,6 +8,8 @@ fixed env
 
   Put the above in your .env file. Some adjustments in the connection URLs will be needed:
 
+  test edit here
+
     - 5432 (this is the default TCP port for PostgreSQL, should work as is and can be omitted)
     - postgres (in postgres:password, this is the default superadmin user, might work as is)
     - password (in postgres:password, replace with the actual password set in pgAdmin 4)
@@ -15,6 +17,16 @@ fixed env
     - testing_database_name (use the real name of the testing database you created in pgAdmin 4)
 
 */
+const pg = require('pg')
+const localConnection = 'postgresql://localhost/recipefinal'
+let connection
+
+if (process.env.DATABASE_URL) {
+  pg.defaults.ssl = { rejectUnauthorized: false }
+  connection = process.env.DATABASE_URL
+}else{
+  connection = localConnection
+}
 
 const sharedConfig = {
   client: 'pg',
