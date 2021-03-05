@@ -1,0 +1,59 @@
+const express = require("express");
+const Recipe = require("./recipe-model");
+const router = express.Router();
+const restricted = require("../middleware/restricted");
+
+//get all recipes
+router.get("/", restricted, async (req, res, next) => {
+  try {
+    const rows = await Recipe.getAll();
+    res.status(200).json(rows);
+  } catch (e) {
+    next(e);
+  }
+});
+
+//get recipe by id
+router.get("/:id", restricted, async (req, res, next) => {
+  try {
+    const rows = await Recipe.getByID(req.params.id);
+    res.status(200).json(rows);
+  } catch (e) {
+    next(e);
+  }
+});
+
+// post a new recipe
+router.post("/", restricted, async (req, res, next) => {
+  try {
+    const rows = await Recipe.post(req.body);
+    res.status(201).json(rows);
+  } catch (e) {
+    next(e);
+  }
+});
+
+//remove recipe
+router.delete("/:id", restricted, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const rows = await Recipe.deleteRecipe(id);
+    res.status(200).json(rows);
+  } catch (e) {
+    next(e);
+  }
+});
+
+//edit a recipe
+router.put("/:id", restricted, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+    const rows = await Recipe.editRecipe(data, id);
+    res.status(200).json(rows);
+  } catch (e) {
+    next(e);
+  }
+});
+
+module.exports = router;

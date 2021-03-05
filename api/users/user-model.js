@@ -13,7 +13,7 @@ function add(user) {
 }
 
 const findById = (id) => {
-  return db("users").where("id", id);
+  return db("users").where("user_id", id);
 };
 
 module.exports = {
