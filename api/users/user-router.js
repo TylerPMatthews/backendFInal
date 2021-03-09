@@ -24,4 +24,11 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.use((err, req, res) => {
+  res.status(500).json({
+    message: " User server error!!!",
+    error: err.message,
+  });
+});
+
 module.exports = router;

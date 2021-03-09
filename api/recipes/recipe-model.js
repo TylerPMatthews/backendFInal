@@ -22,7 +22,7 @@ const deleteRecipe = (id) => {
 };
 
 //edit a recipe
-const editRecipe = (changes, id) => {
+const editRecipe = (id,changes) => {
   return db("recipes").where("recipe_id", id).update(changes);
 };
 
